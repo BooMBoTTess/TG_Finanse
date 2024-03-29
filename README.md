@@ -1,4 +1,4 @@
 # TG_Finanse
 
-##Логика приложения
+## Логика приложения
 https://app.diagrams.net/
