@@ -23,7 +23,11 @@ def get_table_check() -> pd.DataFrame:
     df = df.astype({'price': 'float', 'count': 'int32', 'sum': 'float'})
     return df
 
+def get_aboutCheck_information():
+    name_organisation = driver.find_elements(By.TAG_NAME, 'td')[0].text
+    check_date = driver.find_elements(By.TAG_NAME, 'td')[4].text.split(' ')[0]
 
+    return name_organisation, check_date
 
 def start_parse(link: str) -> product:
     return 0
