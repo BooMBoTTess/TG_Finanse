@@ -11,7 +11,10 @@ class parser():
     pass
 
 def get_table_check() -> pd.DataFrame:
-    '''ВОзвращает таблицу с покупками в чеке'''
+    '''
+    В открытом селениуме поиск инфомормацию о чеке из таблицы.
+    Возвращает таблицу с покупками в чеке
+    '''
     all_products = driver.find_elements(By.CLASS_NAME, "b-check_item")
     tmp_arr = []
     for elem in all_products:
@@ -24,12 +27,17 @@ def get_table_check() -> pd.DataFrame:
     return df
 
 def get_aboutCheck_information():
+    '''
+    Достать дополнительную информацию о чеке.
+    :return:
+
+    '''
     name_organisation = driver.find_elements(By.TAG_NAME, 'td')[0].text
     check_date = driver.find_elements(By.TAG_NAME, 'td')[4].text.split(' ')[0]
 
     return name_organisation, check_date
 
-def start_parse(link: str) -> product:
-    return 0
+
+
 
 driver = webdriver.Chrome()
