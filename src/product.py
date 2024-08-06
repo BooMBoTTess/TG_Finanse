@@ -6,7 +6,10 @@ class product_item:
         self.sum = sum
         self.unique_name = ''
 
-    def get_unique_name(self):
+    def set_unique_name(self):
+        '''
+        Достать уникальное название для товара, чтобы называть разные товары одинаково
+        '''
         pass
 
     def __repr__(self):

@@ -21,13 +21,12 @@ def get_check_data_by_qrraw(qrraw):
     r = requests.post(url, data=data)
     response = json.loads(r.text)
 
-
-    print(f"request {qrraw} success with len {len(response['data']['json']['items'])} orders")
     return response
 
 def preproc_check_data(response : dict):
     '''
-    :param response: str
+    :param:
+    response: str
     :return:
     organization_name: str - название организации в которой произошла сделка,
     total_sum: int - конечная сумма чека,
