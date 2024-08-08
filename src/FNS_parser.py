@@ -9,6 +9,8 @@ TOKEN_PROVERKACHECKA = os.getenv('TOKEN_PROVERKACHECKA')
 URL = 'https://proverkacheka.com/api/v1/check/get'
 
 '''Получение данных чека по API'''
+
+
 def get_check_data_by_qrraw(qrraw: str):
     '''
     Функция для доставания ответа из проверкичеков по чистой инфе.
@@ -17,11 +19,11 @@ def get_check_data_by_qrraw(qrraw: str):
     :return response:
     '''
 
-
-    data = {'token': TOKEN_PROVERKACHECKA, 'qrraw': 't=20200924T1837&s=349.93&fn=9282440300682838&i=46534&fp=1273019065&n=1'}
+    data = {'token': TOKEN_PROVERKACHECKA, 'qrraw': qrraw}
     r = requests.post(URL, data=data)
     response = json.loads(r.text)
     return response
+
 
 def get_check_data_by_QR(QR_link: str):
     '''
@@ -30,12 +32,13 @@ def get_check_data_by_QR(QR_link: str):
     :return:
     '''
     data = {'token': TOKEN_PROVERKACHECKA}
-    files = {'qrfile': open('QR_buffer/file', 'rb')}
-    r = requests.post(URL, data=data, files=files)
+    with open(QR_link, 'rb') as f:
+        r = requests.post(URL, data=data, files={'qrfile': f})
     response = json.loads(r.text)
     return response
 
-def preproc_check_data(response : dict):
+
+def preproc_check_data(response: dict):
     '''
     :param:
     response: str
@@ -55,6 +58,7 @@ def preproc_check_data(response : dict):
 
     return organization_name, total_sum, date_time_check, items
 
+
 def get_data(request: str, type: int):
     '''
     Функция принимает файл и тип файла, достает данные по файлу, проверяет успешно ли выполнен запрос, если нет,
@@ -67,16 +71,19 @@ def get_data(request: str, type: int):
     tuple[int, str] - при неудачном запросе
     '''
     if type == 1:
-        responce = get_check_data_by_qrraw()
-        if responce == 1:# Успешный запрос
+        responce = get_check_data_by_qrraw(request)
+        if responce['code'] == 1:  # Успешный запрос
             data = preproc_check_data(responce)
             return data
         else:
             return -1, 'API не удалось прочитать чек'
 
     elif type == 2:
-        responce = get_check_data_by_QR()
-        if responce == 1:# Успешный запрос
+        try:
+            responce = get_check_data_by_QR(request)
+        except:
+            return -2, 'Некорректная ссылка на QR код'
+        if responce['code'] == 1:  # Успешный запрос
             data = preproc_check_data(responce)
             return data
         else:
