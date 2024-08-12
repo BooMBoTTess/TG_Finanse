@@ -1,5 +1,10 @@
 import Finance_module
 import pytest
+from Classes import product
+
+def test_get_preproc():
+
+
 
 def test_get_check_by_QR():
     assert Finance_module.get_data('QR_buffer/test_check.jfif',

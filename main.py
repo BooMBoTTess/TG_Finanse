@@ -1,4 +1,6 @@
 import Finance_module
+from Classes import product
+
 
 '''Главный запускала всего'''
 
