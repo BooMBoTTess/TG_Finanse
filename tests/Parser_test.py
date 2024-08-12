@@ -3,7 +3,11 @@ import pytest
 
 def test_get_check_by_QR():
     assert Finance_module.get_data('QR_buffer/test_check.jfif',
-                                   2) == (-1, 'API не удалось прочитать чек')
+                                   2) == ('АО "Центральная ППК"', 8000,
+ '2024-07-30T09:27:00',
+ ["Название: РАЗОВЫЙ ПОЛНЫЙ, цена: 8000, количество: 1, стоимость: 8000"])
+
+
 def test_get_incorrect_check_by_QR():
     assert Finance_module.get_data('QR_buffer/test_chdeck.jfif',
                                    2) == (-2, 'Некорректная ссылка на QR код')

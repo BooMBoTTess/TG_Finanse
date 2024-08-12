@@ -32,7 +32,7 @@ def get_check_data_by_QR(QR_link: str):
     :return:
     '''
     data = {'token': TOKEN_PROVERKACHECKA}
-    with open(QR_link, 'rb') as f:
+    with open(f'../{QR_link}', 'rb') as f:
         r = requests.post(URL, data=data, files={'qrfile': f})
     response = json.loads(r.text)
     return response
