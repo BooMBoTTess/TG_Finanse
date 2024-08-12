@@ -159,4 +159,4 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 excels/
-QR_buffer/
+Finance_module/QR_buffer/

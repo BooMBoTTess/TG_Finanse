@@ -14,3 +14,7 @@ class Product_item:
 
     def __repr__(self):
         return f'"Название: {self.name}, цена: {self.price}, количество: {self.quantity}, стоимость: {self.sum}"'
+
+    def __iter__(self):
+        for attr_name in self.__dict__:
+            yield getattr(self, attr_name)
