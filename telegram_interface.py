@@ -1,9 +1,9 @@
-import src
+import Finance_module
 import telebot
 import dotenv
 '''Телеграмм бот'''
 
-TOKEN = 
+TOKEN = ''
 bot = telebot.TeleBot(TOKEN)
 
 

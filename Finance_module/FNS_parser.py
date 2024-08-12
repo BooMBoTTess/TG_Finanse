@@ -1,6 +1,6 @@
 import requests
 import json
-from src.product import product_item
+from Classes.product import Product_item
 from dotenv import load_dotenv
 import os
 
@@ -53,7 +53,7 @@ def preproc_check_data(response: dict):
     total_sum = response_data['totalSum']
     organization_name = response_data['user']
     items = response_data['items']
-    items = [product_item(name=el['name'], price=el['price'], quantity=el['quantity'], sum=el['sum']) for el in items]
+    items = [Product_item(name=el['name'], price=el['price'], quantity=el['quantity'], sum=el['sum']) for el in items]
     date_time_check = response_data['dateTime']
 
     return organization_name, total_sum, date_time_check, items
@@ -65,7 +65,7 @@ def get_data(request: str, type: int):
     то возвращает -1 и тектовое описание ошибки
 
     :param request: str - запрос, путь к файлу или строка
-    :param type: int - тип запроса: 1 - QR код, 2 - QRRAW
+    :param type: int - тип запроса: 2 - QR код, 1 - QRRAW
     :return:
     tuple[str, int, datetime, list[product]] - при успешном запросе
     tuple[int, str] - при неудачном запросе

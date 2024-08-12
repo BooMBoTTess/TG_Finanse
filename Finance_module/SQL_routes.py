@@ -1,6 +1,6 @@
-from src.product import product_item
+from Classes.product import Product_item
 import datetime
-def add_rows(user_id: str, organisation_name: str, date: datetime, data: list[product_item]):
+def add_rows(user_id: str, organisation_name: str, date: datetime, data: list[Product_item]):
     '''
     Добавить в БД данные по покупкам пользователю
     '''
@@ -19,7 +19,7 @@ def get_unique_names():
     pass
 
 
-def save_to_txt(user_id: str, organisation_name: str, date: datetime, data: list[product_item]):
+def save_to_txt(user_id: str, organisation_name: str, date: datetime, data: list[Product_item]):
     '''
     Временная хуйня для сохранения в txt
     :return:
