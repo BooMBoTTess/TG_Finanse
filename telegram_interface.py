@@ -3,9 +3,13 @@ import telebot
 import dotenv
 import Finance_module
 '''Телеграмм бот'''
+from dotenv import load_dotenv
+import os
 
-TOKEN = ''
-bot = telebot.TeleBot(TOKEN)
+load_dotenv()
+
+TOKEN_TELEGRAMBOT = os.getenv('TOKEN_TELEGRAMBOT')
+bot = telebot.TeleBot(TOKEN_TELEGRAMBOT)
 
 
 
