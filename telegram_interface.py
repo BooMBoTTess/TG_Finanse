@@ -19,13 +19,13 @@ QR handler
 get_excel_file - достать эксельку
 '''
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=['start'])
 def send_welcome(message):
-	bot.reply_to(message, "Howdy, how are you doing?")
+	bot.reply_to(message, "Мурмур начали кушац")
 
 @bot.message_handler(commands=['help'])
 def send_help(message):
-	bot.reply_to(message, "Howdy, how are you doing?")
+	bot.reply_to(message, "Вот что ты хочешь спросить?")
 
 @bot.message_handler(content_types=['message'])
 def text_handler(message):
@@ -45,8 +45,6 @@ def QR_code_handler(message):
 	file_name = message.document.file_name
 	file_info = bot.get_file(message.document.file_id)
 	downloaded_file = bot.download_file(file_info.file_path)
-	with open(f'QR_buffer/{file_name}', 'wb') as new_file:
-		new_file.write(downloaded_file)
 
 	bot.reply_to(message, 'Приветик')
 
