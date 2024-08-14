@@ -18,4 +18,7 @@ def check_handler_QR(self, request: str, user_id: str, type_id: int):
     organisation_name, total_sum, DT, products = response
     print(organisation_name, user_id, total_sum, DT, products)
     #TODO: Сюда вставить сохранение в базу данных
-    return organisation_name, total_sum, DT, products
+    response_code = 0
+    response = {'organisation': organisation_name, 'total_sum': total_sum, 'datetime': DT,
+                'products_list': products}
+    return response_code, response

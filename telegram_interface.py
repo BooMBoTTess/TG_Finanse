@@ -32,11 +32,16 @@ def text_handler(message):
 	bot.reply_to(message, message.text)
 	if message.text[0:1] == 't=':
 		# отправить в класс для работы. Класс должен вернуть ответ и выполнить всю работу
-		organisation_name, total_sum, DT, products = Finance_module.check_handler_QR(message.text, message.from_user, 1)
-		message_template = f'Ваш чек от {organisation_name}, был послан {DT}:\n'
-		for elem in products:
-			message_template += f'{elem.name} - {elem.sum//100} руб.\n'
-		bot.reply_to(message, message_template)
+		response_code, response = Finance_module.check_handler_QR(message.text, message.from_user, 1)
+		if response_code == 0:
+			message_template = f'Ваш чек от {response["organisation"]}, был послан {response["datetime"]}:\n'
+			for elem in response["products_list"]:
+				message_template += f'{elem.name} - {elem.sum//100} руб.\n'
+			bot.reply_to(message, message_template)
+		elif response_code == -1:
+			bot.reply_to(message, 'Не удалось найти чек по данному запросу')
+		else:
+			bot.reply_to(message, 'Неизвестная ошибка при исполнении программы')
 
 
 @bot.message_handler(content_types=['document', 'photo'])
