@@ -52,7 +52,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="_t3gb8AgzmnyXI9EQhjD-6" value="Отправил QRRAW" style="rhombus;whiteSpace=wrap;html=1;shadow=0;fontFamily=Helvetica;fontSize=12;align=center;strokeWidth=1;spacing=6;spacingTop=-4;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="40" y="240" width="130" height="110" as="geometry" />
+          <mxGeometry x="30" y="230" width="130" height="110" as="geometry" />
         </mxCell>
         <mxCell id="1Vvxw95PRTPTEVMSdwT1-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="_t3gb8AgzmnyXI9EQhjD-10" target="_t3gb8AgzmnyXI9EQhjD-31">
           <mxGeometry relative="1" as="geometry" />
