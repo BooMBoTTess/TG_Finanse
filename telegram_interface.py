@@ -53,6 +53,8 @@ def QR_code_handler(message):
 	file_info = bot.get_file(message.photo[0].file_id)
 	downloaded_file = bot.download_file(file_info.file_path)
 
+
+
 	response_code, response = Finance_module.check_handler_QR(downloaded_file, message.from_user.id, 2)
 
 	if response_code == 0:
