@@ -12,11 +12,11 @@ def check_handler_QR(request, user_id: str, type_id: int):
     :return:
     '''
     response = FNS_parser.get_data(request, type_id)
-    if response[0] == -1:
+    print(response)
+    if len(response) == 2:
         return (response[0], response[1])
 
     organisation_name, total_sum, DT, products = response
-    print(organisation_name, user_id, total_sum, DT, products)
     #TODO: Сюда вставить сохранение в базу данных
     response_code = 0
     response = {'organisation': organisation_name, 'total_sum': total_sum, 'datetime': DT,

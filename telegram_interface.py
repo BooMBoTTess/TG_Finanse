@@ -43,7 +43,7 @@ def text_handler(message):
 		elif response_code == -1:
 			bot.reply_to(message, 'Не удалось найти чек по данному запросу')
 		else:
-			bot.reply_to(message, 'Неизвестная ошибка при исполнении программы')
+			bot.reply_to(message, response)
 
 
 @bot.message_handler(content_types=['photo'])
@@ -53,6 +53,7 @@ def QR_code_handler(message):
 	downloaded_file = bot.download_file(file_info.file_path)
 
 	response_code, response = Finance_module.check_handler_QR(downloaded_file, message.from_user.id, 2)
+
 	if response_code == 0:
 		message_template = f'Ваш чек от {response["organisation"]}, был послан {response["datetime"]}:\n'
 		for elem in response["products_list"]:

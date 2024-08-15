@@ -64,6 +64,7 @@ def preproc_check_data(response: dict):
     total_sum = response_data['totalSum']
     organization_name = response_data['user']
     items = response_data['items']
+
     items = [Product_item(name=el['name'], price=el['price'], quantity=el['quantity'], sum=el['sum']) for el in items]
     date_time_check = response_data['dateTime']
 
