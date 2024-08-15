@@ -21,20 +21,20 @@ get_excel_file - достать эксельку
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
+	print('start', message.from_user.id)
 	bot.reply_to(message, "Мурмур начали кушац")
 
 @bot.message_handler(commands=['help'])
 def send_help(message):
 	bot.reply_to(message, "Вот что ты хочешь спросить?")
 
-@bot.message_handler(content_types=['message'])
+@bot.message_handler(content_types=['text'])
 def text_handler(message):
-	print('message handled')
-	bot.reply_to(message, message.text)
-	if message.text[0:1] == 't=':
-		print('start QRraw')
+	print('text handler')
+	if message.text[0:2] == 't=':
+		print('qrraw')
 		# отправить в класс для работы. Класс должен вернуть ответ и выполнить всю работу
-		response_code, response = Finance_module.check_handler_QR(message.text, message.from_user, 1)
+		response_code, response = Finance_module.check_handler_QR(message.text, message.from_user.id, 1)
 		if response_code == 0:
 			message_template = f'Ваш чек от {response["organisation"]}, был послан {response["datetime"]}:\n'
 			for elem in response["products_list"]:
@@ -43,17 +43,27 @@ def text_handler(message):
 		elif response_code == -1:
 			bot.reply_to(message, 'Не удалось найти чек по данному запросу')
 		else:
-			bot.reply_to(message, 'Неизвестная ошибка при исполнении программы')
+			bot.reply_to(message, response)
 
 
-@bot.message_handler(content_types=['document', 'photo'])
+@bot.message_handler(content_types=['photo'])
 def QR_code_handler(message):
 	print('DocorPhotohandled')
 	# отправить в класс для работы. Класс должен вернуть ответ и выполнить всю работу
-	file_name = message.document.file_name
-	file_info = bot.get_file(message.document.file_id)
+	file_info = bot.get_file(message.photo[0].file_id)
 	downloaded_file = bot.download_file(file_info.file_path)
 
-	bot.reply_to(message, 'Приветик')
+	response_code, response = Finance_module.check_handler_QR(downloaded_file, message.from_user.id, 2)
+
+	if response_code == 0:
+		message_template = f'Ваш чек от {response["organisation"]}, был послан {response["datetime"]}:\n'
+		for elem in response["products_list"]:
+			message_template += f'{elem.name} - {elem.sum // 100} руб.\n'
+		bot.reply_to(message, message_template)
+	elif response_code == -1:
+		bot.reply_to(message, 'Не удалось найти чек по данному запросу')
+	else:
+		bot.reply_to(message, response)
+
 
 bot.polling(none_stop=True, timeout=123)
