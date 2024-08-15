@@ -1,12 +1,12 @@
-import FNS_parser
+from Finance_module import FNS_parser
 
-def check_handler_QR(self, request: str, user_id: str, type_id: int):
+def check_handler_QR(request, user_id: str, type_id: int):
     '''
     Достает по запросу данные чека.
     Если правильно, сохраняет данные.
     Выдает эти данные для интерфейса.
 
-    :param request: str - Вводные данные, ссылка на QR код
+    :param request: str | file - Вводные данные, [QRRAW или файл QR кода]
     :param user_id: str - Айди пользователя, который отправил запрос
     :param type_id: int - Тип запроса, 1 QRRAW, 2 QR код
     :return:
