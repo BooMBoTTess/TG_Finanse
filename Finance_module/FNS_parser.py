@@ -32,7 +32,7 @@ def get_check_data_by_QR_link(QR_link: str):
     :return:
     '''
     data = {'token': TOKEN_PROVERKACHECKA}
-    with open(f'../{QR_link}', 'rb') as f:
+    with open(f'{QR_link}', 'rb') as f:
         r = requests.post(URL, data=data, files={'qrfile': f})
     response = json.loads(r.text)
     return response
@@ -77,7 +77,7 @@ def get_data(request: str, type: int):
     то возвращает -1 и тектовое описание ошибки
 
     :param request: str - запрос, [QRRAW | QRcode]
-    :param type: int - тип запроса: 2 - QR код, 1 - QRRAW
+    :param type: int - тип запроса: 2 - QR код, 1 - QRRAW, 3 - ссылка на QR код
     :return:
     tuple[str, int, datetime, list[product]] - при успешном запросе
     tuple[int, str] - при неудачном запросе
@@ -102,5 +102,17 @@ def get_data(request: str, type: int):
             return -3, 'Превышено количество обращений по чеку'
         else:
             return -1, 'API не удалось прочитать чек'
+    elif type == 3:
+        try:
+            responce = get_check_data_by_QR_link(request)
+        except:
+            return -2, 'Некорректная ссылка на QR код'
+        if responce['code'] == 1:  # Успешный запрос
+            data = preproc_check_data(responce)
+            return data
+        elif responce['code'] == 3:
+            return -3, 'Превышено количество обращений по чеку'
+        else:
+            return -1, 'API не удалось прочитать чек'
     else:
-        return -1, 'Такой тип запроса не поддерживается'
+        return -404, 'Такой тип запроса не поддерживается'

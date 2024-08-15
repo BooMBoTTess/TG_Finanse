@@ -8,7 +8,7 @@ def check_handler_QR(request, user_id: str, type_id: int):
 
     :param request: str | file - Вводные данные, [QRRAW или файл QR кода]
     :param user_id: str - Айди пользователя, который отправил запрос
-    :param type_id: int - Тип запроса, 1 QRRAW, 2 QR код
+    :param type_id: int - Тип запроса, 1 QRRAW, 2 QR код, 3 Ссылка на QR код
     :return:
     '''
     response = FNS_parser.get_data(request, type_id)
