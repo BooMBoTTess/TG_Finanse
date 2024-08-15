@@ -29,8 +29,10 @@ def send_help(message):
 
 @bot.message_handler(content_types=['message'])
 def text_handler(message):
+	print('message handled')
 	bot.reply_to(message, message.text)
 	if message.text[0:1] == 't=':
+		print('start QRraw')
 		# отправить в класс для работы. Класс должен вернуть ответ и выполнить всю работу
 		response_code, response = Finance_module.check_handler_QR(message.text, message.from_user, 1)
 		if response_code == 0:
@@ -46,6 +48,7 @@ def text_handler(message):
 
 @bot.message_handler(content_types=['document', 'photo'])
 def QR_code_handler(message):
+	print('DocorPhotohandled')
 	# отправить в класс для работы. Класс должен вернуть ответ и выполнить всю работу
 	file_name = message.document.file_name
 	file_info = bot.get_file(message.document.file_id)
