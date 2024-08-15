@@ -51,9 +51,11 @@ def QR_code_handler(message):
 	# отправить в класс для работы. Класс должен вернуть ответ и выполнить всю работу
 	file_info = bot.get_file(message.photo[1].file_id)
 	downloaded_file = bot.download_file(file_info.file_path)
+	save_path = 'Finance_module/QR_buffer/buff.jpg'
+	with open(save_path, 'wb') as new_file:
+		new_file.write(downloaded_file)
 
-
-	response_code, response = Finance_module.check_handler_QR(downloaded_file, message.from_user.id, 2)
+	response_code, response = Finance_module.check_handler_QR('Finance_module/QR_buffer/buff.jpg', message.from_user.id, 3)
 
 	if response_code == 0:
 		message_template = f'Ваш чек от {response["organisation"]}, был послан {response["datetime"]}:\n'
