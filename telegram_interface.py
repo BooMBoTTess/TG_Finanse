@@ -49,8 +49,9 @@ def text_handler(message):
 @bot.message_handler(content_types=['photo'])
 def QR_code_handler(message):
 	# отправить в класс для работы. Класс должен вернуть ответ и выполнить всю работу
-	file_info = bot.get_file(message.photo[0].file_id)
+	file_info = bot.get_file(message.photo[1].file_id)
 	downloaded_file = bot.download_file(file_info.file_path)
+
 
 	response_code, response = Finance_module.check_handler_QR(downloaded_file, message.from_user.id, 2)
 
